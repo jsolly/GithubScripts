@@ -1,10 +1,14 @@
 import os
 import re
-import secrets
 from selenium import webdriver
-from my_secrets import DEVTOPIA_BASE_URL, DEVTOPIA_USERNAME, DEVTOPIA_PASSWORD, DEVTOPIA_REPO_OBJECT
+from other.my_secrets import (
+    DEVTOPIA_BASE_URL,
+    DEVTOPIA_USERNAME,
+    DEVTOPIA_PASSWORD,
+    DEVTOPIA_REPO_OBJECT,
+)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     opts = webdriver.ChromeOptions()
     driver = webdriver.Chrome()
 
@@ -21,14 +25,18 @@ if __name__ == '__main__':
                 continue
             else:
                 title = issue.title
-                clean_issue_title = re.sub('[^A-Za-z0-9]+', '_', title) # Remove any weird punctuation
+                clean_issue_title = re.sub(
+                    "[^A-Za-z0-9]+", "_", title
+                )  # Remove any weird punctuation
                 driver.get(issue._html_url.value)
                 driver.implicitly_wait(3)
-                body_element = driver.find_element_by_tag_name('body') # avoids scrollbar
+                body_element = driver.find_element_by_tag_name(
+                    "body"
+                )  # avoids scrollbar
                 body_element.screenshot(f"{clean_issue_title}.png")
                 os.system(f"convert {clean_issue_title}.png {clean_issue_title}.pdf")
                 os.remove(f"{clean_issue_title}.png")
-            
+
         driver.quit()
     except Exception as e:
         print(e)
