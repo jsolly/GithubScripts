@@ -26,12 +26,9 @@ def add_issues_to_epic(issue_numbers, epic_issue_id):
 
 def add_labels_to_issues(issue_numbers, repo_obj):
     for issue_number in issue_numbers:
-        try:
-            issue = repo_obj.get_issue(issue_number)
-            issue.add_to_labels("A-architecture")
-            issue.remove_from_labels("A-bug")
-        except:
-            pass
+        issue = repo_obj.get_issue(issue_number)
+        issue.add_to_labels("A-architecture")
+        issue.remove_from_labels("A-bug")
 
 
 if __name__ == "__main__":

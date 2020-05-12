@@ -5,7 +5,7 @@ if __name__ == "__main__":
     try:
         porting_issue = REPO.get_issue(3294)
         # issue_content = porting_issue.body
-        pattern = re.compile(r"https:\/\/.*\/issues\/\d*")
+        pattern = re.compile(r"https://.*/issues/\d*")
 
         issue_content = ""
 

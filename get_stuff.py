@@ -8,7 +8,7 @@ import re
 import json
 import requests
 
-pattern = re.compile(r"https:\/\/.*\/issues\/\d*")
+pattern = re.compile(r"https://.*/issues/\d*")
 
 
 def get_issue_numbers_from_issue_body(issue_number):
