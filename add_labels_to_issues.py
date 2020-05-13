@@ -1,5 +1,6 @@
-from other.my_secrets import DEVTOPIA_REPO_OBJECT
+from other.my_secrets import get_devtopia_api_obj
 
+DEVTOPIA_REPO_OBJECT = get_devtopia_api_obj()
 issues = list(DEVTOPIA_REPO_OBJECT.get_issues(state="open"))
 # issue = repo.get_issue(3736)
 

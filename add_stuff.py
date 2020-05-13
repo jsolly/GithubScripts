@@ -1,7 +1,10 @@
 import json
 import requests
-from other.my_secrets import ZENTOPIA_REPO_ID as REPO
-from other.my_secrets import ZENTOPIA_API_URL, ZENTOPIA_TOKEN
+from other.my_secrets import ZENTOPIA_DICT
+
+ZENTOPIA_API_URL = ZENTOPIA_DICT["ZENTOPIA_API_URL"]
+REPO = ZENTOPIA_DICT["REPO"]
+ZENTOPIA_TOKEN = ZENTOPIA_DICT["REPO"]
 
 
 def add_issues_to_epic(issue_numbers, epic_issue_id):
@@ -9,7 +12,8 @@ def add_issues_to_epic(issue_numbers, epic_issue_id):
 
     json_data = {
         "add_issues": [
-            {"repo_id": REPO, "issue_number": issue.number} for issue in issue_numbers
+            {"repo_id": ZENTOPIA_DICT["REPO"], "issue_number": issue.number}
+            for issue in issue_numbers
         ],
         "remove_issues": [],
     }

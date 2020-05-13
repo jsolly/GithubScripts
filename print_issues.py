@@ -1,12 +1,9 @@
 import os
 import re
 from selenium import webdriver
-from other.my_secrets import (
-    DEVTOPIA_BASE_URL,
-    DEVTOPIA_USERNAME,
-    DEVTOPIA_PASSWORD,
-    DEVTOPIA_REPO_OBJECT,
-)
+from other.my_secrets import DEVTOPIA_DICT, get_devtopia_api_obj
+
+DEVTOPIA_REPO_OBJECT = get_devtopia_api_obj()
 
 if __name__ == "__main__":
     opts = webdriver.ChromeOptions()
@@ -15,9 +12,13 @@ if __name__ == "__main__":
     try:
         issues = list(DEVTOPIA_REPO_OBJECT.get_issues(state="open"))
 
-        driver.get(f"{DEVTOPIA_BASE_URL}/login")
-        driver.find_element_by_id("login_field").send_keys(DEVTOPIA_USERNAME)
-        driver.find_element_by_id("password").send_keys(DEVTOPIA_PASSWORD)
+        driver.get(f"{DEVTOPIA_DICT['DEVTOPIA_BASE_URL']}/login")
+        driver.find_element_by_id("login_field").send_keys(
+            DEVTOPIA_DICT["DEVTOPIA_USERNAME"]
+        )
+        driver.find_element_by_id("password").send_keys(
+            DEVTOPIA_DICT["DEVTOPIA_PASSWORD"]
+        )
         driver.find_element_by_name("commit").click()
 
         for issue in issues:

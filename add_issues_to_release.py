@@ -13,7 +13,7 @@ if __name__ == "__main__":
     """
     json_data = {
         "add_issues": [
-            {"repo_id": REPO_ID, "issue_number": issue.number}
+            {"repo_id": ZENTOPIA_DICT["REPO_ID"], "issue_number": issue.number}
             for issue in issues
             if "[Ported to 4x]" in issue.title
         ],
@@ -23,7 +23,7 @@ if __name__ == "__main__":
     request_url = (
         f"{ZENTOPIA_DICT['ZENTOPIA_API_URL']}/p1/reports/release/{release_id}/issues"
     )
-    head = {"X-Authentication-Token": ZENTOPIA_TOKEN}
+    head = {"X-Authentication-Token": ZENTOPIA_DICT["ZENTOPIA_TOKEN"]}
     response = requests.request(
         method="PATCH", url=request_url, headers=head, json=json_data, verify=False
     )

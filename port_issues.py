@@ -1,5 +1,7 @@
 import re
-from other.my_secrets import DEVTOPIA_REPO_OBJECT as REPO
+from other.my_secrets import get_devtopia_api_obj
+
+REPO = get_devtopia_api_obj()
 
 if __name__ == "__main__":
     try:

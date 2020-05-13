@@ -1,12 +1,13 @@
-from other.my_secrets import (
-    DEVTOPIA_REPO_OBJECT,
-    ZENTOPIA_API_URL,
-    ZENTOPIA_TOKEN,
-    ZENTOPIA_REPO_ID,
-)
-import re
-import json
 import requests
+import json
+import re
+from other.my_secrets import get_devtopia_api_obj, ZENTOPIA_DICT
+
+ZENTOPIA_API_URL = ZENTOPIA_DICT["ZENTOPIA_DICT"]
+ZENTOPIA_REPO_ID = ZENTOPIA_DICT["ZENTOPIA_REPO_ID"]
+ZENTOPIA_TOKEN = ZENTOPIA_DICT["ZENTOPIA_TOKEN"]
+DEVTOPIA_REPO_OBJECT = get_devtopia_api_obj()
+
 
 pattern = re.compile(r"https://.*/issues/\d*")
 
