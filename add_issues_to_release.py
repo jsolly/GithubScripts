@@ -1,9 +1,9 @@
 import json
 import requests
-from other.my_secrets import DEVTOPIA_REPO_OBJECT as REPO
-from other.my_secrets import ZENTOPIA_REPO_ID as REPO_ID
-from other.my_secrets import ZENTOPIA_TOKEN, ZENTOPIA_API_URL
+from other.my_secrets import get_devtopia_api_obj
+from other.my_secrets import ZENTOPIA_DICT
 
+REPO = get_devtopia_api_obj().get_repo()
 if __name__ == "__main__":
     issues = list(REPO.get_issues(state="open"))
     release_id = "5b560460f538700745b06be1"
@@ -20,7 +20,9 @@ if __name__ == "__main__":
         "remove_issues": [],
     }
 
-    request_url = f"{ZENTOPIA_API_URL}/p1/reports/release/{release_id}/issues"
+    request_url = (
+        f"{ZENTOPIA_DICT['ZENTOPIA_API_URL']}/p1/reports/release/{release_id}/issues"
+    )
     head = {"X-Authentication-Token": ZENTOPIA_TOKEN}
     response = requests.request(
         method="PATCH", url=request_url, headers=head, json=json_data, verify=False
