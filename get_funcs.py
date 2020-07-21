@@ -10,7 +10,7 @@ ZENTOPIA_DICT = MySecrets.ZENTOPIA_DICT
 ZENTOPIA_API_URL = ZENTOPIA_DICT["API_URL"]
 ZENTOPIA_REPO_ID = ZENTOPIA_DICT["REPO_ID"]
 ZENTOPIA_TOKEN = ZENTOPIA_DICT["TOKEN"]
-ZENTOPIA_RELEASE_ID = ZENTOPIA_DICT["8.2_Release_ID"]
+ZENTOPIA_RELEASE_ID = "5dfbe09411cfa409bbb033c9"
 DEVTOPIA_REPO_OBJECT = MySecrets.get_devtopia_api_obj()
 
 
@@ -48,14 +48,13 @@ def get_issues_to_verify_after_release(release_id, repo_id):
     issue_numbers = [issue_dict["issue_number"] for issue_dict in release_issues]
 
     for issue_number in issue_numbers:
-        issue_data_url = (
-            f"{ZENTOPIA_API_URL}/p1/repositories/{repo_id}/issues/{issue_number}"
-        )
-        issue_data = requests.request(
-            method="GET", url=issue_data_url, headers=head, verify=False
-        ).json()
-        if "pipeline" in issue_data:
-            print(issue_number)
+        print(issue_number)
+        # issue_data_url = (
+        #     f"{ZENTOPIA_API_URL}/p1/repositories/{repo_id}/issues/{issue_number}"
+        # )
+        # issue_data = requests.request(
+        #     method="GET", url=issue_data_url, headers=head, verify=False
+        # ).json()
 
 
 if __name__ == "__main__":
