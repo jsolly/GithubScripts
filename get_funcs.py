@@ -1,8 +1,10 @@
-import requests
 import json
 import re
-from other.my_secrets import MySecrets
+
+import requests
 import urllib3
+
+from other.my_secrets import MySecrets
 
 urllib3.disable_warnings()
 
@@ -10,7 +12,7 @@ ZENTOPIA_DICT = MySecrets.ZENTOPIA_DICT
 ZENTOPIA_API_URL = ZENTOPIA_DICT["API_URL"]
 ZENTOPIA_REPO_ID = ZENTOPIA_DICT["REPO_ID"]
 ZENTOPIA_TOKEN = ZENTOPIA_DICT["TOKEN"]
-ZENTOPIA_RELEASE_ID = "5dfbe09411cfa409bbb033c9"
+ZENTOPIA_RELEASE_ID = "5f51cd7001486a33612a9f87"
 DEVTOPIA_REPO_OBJECT = MySecrets.get_devtopia_api_obj()
 
 
@@ -38,7 +40,7 @@ def get_epic_issue_numbers(epic_issue_number: int):
     return epic_issue_numbers
 
 
-def get_issues_to_verify_after_release(release_id, repo_id):
+def get_issues_to_verify_after_release(release_id: str, repo_id: int):
     release_issues_url = f"{ZENTOPIA_API_URL}/p1/reports/release/{release_id}/issues"
     head = {"X-Authentication-Token": ZENTOPIA_TOKEN}
     release_issues = requests.request(
@@ -48,13 +50,17 @@ def get_issues_to_verify_after_release(release_id, repo_id):
     issue_numbers = [issue_dict["issue_number"] for issue_dict in release_issues]
 
     for issue_number in issue_numbers:
-        print(issue_number)
-        # issue_data_url = (
-        #     f"{ZENTOPIA_API_URL}/p1/repositories/{repo_id}/issues/{issue_number}"
-        # )
-        # issue_data = requests.request(
-        #     method="GET", url=issue_data_url, headers=head, verify=False
-        # ).json()
+        issue_data_url = (
+            f"{ZENTOPIA_API_URL}/p1/repositories/{repo_id}/issues/{issue_number}/events"
+        )
+
+        issue_data = requests.request(
+            method="GET", url=issue_data_url, headers=head, verify=False
+        ).json()
+        try:
+            print(f"{issue_number}, {issue_data[0]['created_at'].split('T')[0]}")
+        except:
+            print(issue_number)
 
 
 if __name__ == "__main__":
